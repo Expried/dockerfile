@@ -1,12 +1,1 @@
-FROM alpine
-
-LABEL maintainer="Tom Denham <tom@tigera.io>"
-
-ENV FLANNEL_ARCH=amd64
-
-RUN apk add --no-cache iproute2 net-tools ca-certificates iptables strongswan && update-ca-certificates
-RUN apk add wireguard-tools --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-COPY dist/flanneld-$FLANNEL_ARCH /opt/bin/flanneld
-COPY dist/mk-docker-opts.sh /opt/bin/
-
-ENTRYPOINT ["/opt/bin/flanneld"]
+FROM quay.io/coreos/flannel:v0.12.0-amd64
